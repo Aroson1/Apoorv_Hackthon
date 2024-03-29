@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 
 import 'firebase_options.dart';
-import 'Screen/profilePage.dart';
 import 'Screen/MainScreen.dart';
 import 'Screen/Login_Page/Login_background.dart';
 import 'Screen/Signup_Page/Signup_background.dart';
@@ -18,9 +17,9 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  FirebaseMessaging fcm = FirebaseMessaging.instance;
 
-  String? token = await _fcm.getToken();
+  String? token = await fcm.getToken();
   print('Token: $token');
 }
 
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
-        '/home': (context) => MainScreen(),
+        '/home': (context) => const MainScreen(),
         // '/profile': (context) => ProfilePage(),
       },
     );

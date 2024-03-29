@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TabItem extends StatefulWidget {
   TabItem(
-      {required this.selected,
+      {super.key, required this.selected,
       required this.iconData,
       required this.title,
       required this.callbackFunction});
@@ -56,35 +56,35 @@ class _TabItemState extends State<TabItem> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Container(
+          SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: AnimatedAlign(
-                duration: Duration(milliseconds: ANIM_DURATION),
+                duration: const Duration(milliseconds: ANIM_DURATION),
                 alignment: Alignment(0, textYAlign),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     widget.title,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                 )),
           ),
-          Container(
+          SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: AnimatedAlign(
-              duration: Duration(milliseconds: ANIM_DURATION),
+              duration: const Duration(milliseconds: ANIM_DURATION),
               curve: Curves.easeIn,
               alignment: Alignment(0, iconYAlign),
               child: AnimatedOpacity(
-                duration: Duration(milliseconds: ANIM_DURATION),
+                duration: const Duration(milliseconds: ANIM_DURATION),
                 opacity: iconAlpha,
                 child: IconButton(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  padding: EdgeInsets.all(0),
-                  alignment: Alignment(0, 0),
+                  padding: const EdgeInsets.all(0),
+                  alignment: const Alignment(0, 0),
                   icon: Icon(
                     widget.iconData,
                     color: Colors.white,

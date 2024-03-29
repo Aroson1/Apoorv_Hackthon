@@ -5,12 +5,13 @@ class BlogScreen extends StatefulWidget {
   @override
   final Blog? blog;
 
-  BlogScreen({this.blog});
+  const BlogScreen({super.key, this.blog});
+  @override
   _BlogScreenState createState() => _BlogScreenState();
 }
 
 class _BlogScreenState extends State<BlogScreen> {
-  final Color primarycolor = Color(0xFF1D1D1D);
+  final Color primarycolor = const Color(0xFF1D1D1D);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class _BlogScreenState extends State<BlogScreen> {
             Container(
               child: Stack(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.45,
                     child: ClipRRect(
                       child: Image(
@@ -38,11 +39,11 @@ class _BlogScreenState extends State<BlogScreen> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         color: primarycolor,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(60.0),
                             topRight: Radius.circular(60.0)),
                       ),
-                      child: SizedBox(width: 1),
+                      child: const SizedBox(width: 1),
                     ),
                   ),
                   Positioned(
@@ -55,14 +56,14 @@ class _BlogScreenState extends State<BlogScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back,
                               color: Colors.white,
                               size: 30,
                             ),
                             onPressed: () => Navigator.pop(context),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.bookmark_border,
                             color: Colors.white,
                             size: 30,
@@ -86,38 +87,38 @@ class _BlogScreenState extends State<BlogScreen> {
                   children: <Widget>[
                     Text(
                       widget.blog!.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 28.0,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "⭐ 4.5",
                           style: TextStyle(fontSize: 18.0, color: Colors.grey),
                         ),
-                        SizedBox(width: 20.0),
+                        const SizedBox(width: 20.0),
                         Row(
                           children: <Widget>[
-                            Icon(
+                            const Icon(
                               Icons.timer,
                               color: Colors.grey,
                               size: 16.0,
                             ),
-                            SizedBox(width: 2.0),
+                            const SizedBox(width: 2.0),
                             Text(
                               widget.blog!.created_at,
                               style:
-                                  TextStyle(color: Colors.grey, fontSize: 16.0),
+                                  const TextStyle(color: Colors.grey, fontSize: 16.0),
                             )
                           ],
                         ),
-                        SizedBox(width: 20.0),
-                        Row(
+                        const SizedBox(width: 20.0),
+                        const Row(
                           children: <Widget>[
                             Icon(
                               Icons.remove_red_eye,
@@ -134,7 +135,7 @@ class _BlogScreenState extends State<BlogScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     Row(
                       children: <Widget>[
                         CircleAvatar(
@@ -142,20 +143,20 @@ class _BlogScreenState extends State<BlogScreen> {
                               AssetImage(widget.blog!.author.imageUrl),
                           radius: 28.0,
                         ),
-                        SizedBox(width: 10.0),
+                        const SizedBox(width: 10.0),
                         Text(
                           widget.blog!.author.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.8),
                         )
                       ],
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     Text(
                       widget.blog!.content,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18.0, color: Colors.grey, letterSpacing: 1),
                     )
                   ],

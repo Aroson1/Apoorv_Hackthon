@@ -4,9 +4,10 @@ import 'package:firebase_winterhacks/Screen/profilePage.dart';
 import '../Screen/Feeds/FeedsPage.dart';
 import 'package:flutter/material.dart';
 import '../widgets/bottomTabBar.dart';
-import '../models/tab_item.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -21,8 +22,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     });
   }
 
-  var themeColor = Color(0xFF1D1D1D);
-  var secondaryColor = Color(0xFF2B2B2B);
+  var themeColor = const Color(0xFF1D1D1D);
+  var secondaryColor = const Color(0xFF2B2B2B);
   @override
   Widget build(BuildContext context) {
     final String data = ModalRoute.of(context)!.settings.arguments as String;
@@ -30,13 +31,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       backgroundColor: themeColor,
       appBar: AppBar(
         title: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(screenName[_selectedIndex]),
               _selectedIndex == 0
-                  ? Row(
+                  ? const Row(
                       children: <Widget>[
                         Icon(
                           Icons.search,
@@ -51,16 +52,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         )
                       ],
                     )
-                  : Text(""),
+                  : const Text(""),
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomTabBar(onTabSelected: _updateSelectedIndex),
       body: _selectedIndex == 0
-          ? FeedsPage()
+          ? const FeedsPage()
           : _selectedIndex == 1
-              ? GlassmorphicGrid()
+              ? const GlassmorphicGrid()
               : ProfilePage(user: data),
     );
   }

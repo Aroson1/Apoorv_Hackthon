@@ -5,7 +5,7 @@ import 'package:vector_math/vector_math.dart' as vector;
 class BottomTabBar extends StatefulWidget {
   final Function(int) onTabSelected;
 
-  BottomTabBar({required this.onTabSelected});
+  const BottomTabBar({super.key, required this.onTabSelected});
 
   @override
   _BottomTabBarState createState() => _BottomTabBarState();
@@ -32,9 +32,9 @@ class _BottomTabBarState extends State<BottomTabBar>
     super.initState();
 
     _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: ANIM_DURATION));
+        vsync: this, duration: const Duration(milliseconds: ANIM_DURATION));
     _fadeOutController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: (ANIM_DURATION ~/ 5)));
+        vsync: this, duration: const Duration(milliseconds: (ANIM_DURATION ~/ 5)));
 
     _positionTween = Tween<double>(begin: 0, end: 0);
     _positionAnimation = _positionTween.animate(
@@ -61,7 +61,7 @@ class _BottomTabBarState extends State<BottomTabBar>
     _fadeFabInAnimation = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(
             parent: _animationController,
-            curve: Interval(0.8, 1, curve: Curves.easeOut)))
+            curve: const Interval(0.8, 1, curve: Curves.easeOut)))
       ..addListener(() {
         setState(() {
           fabIconAlpha = _fadeFabInAnimation.value;
@@ -76,8 +76,8 @@ class _BottomTabBarState extends State<BottomTabBar>
       children: <Widget>[
         Container(
           height: 65,
-          margin: EdgeInsets.only(top: 45),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.only(top: 45),
+          decoration: const BoxDecoration(
               color: Color.fromARGB(255, 76, 46, 185),
               boxShadow: [
                 BoxShadow(
@@ -128,7 +128,7 @@ class _BottomTabBarState extends State<BottomTabBar>
         ),
         IgnorePointer(
           child: Container(
-            decoration: BoxDecoration(color: Colors.transparent),
+            decoration: const BoxDecoration(color: Colors.transparent),
             child: Align(
               heightFactor: 1,
               alignment: Alignment(_positionAnimation.value, 0),
@@ -147,7 +147,7 @@ class _BottomTabBarState extends State<BottomTabBar>
                               child: Container(
                                   width: 70,
                                   height: 70,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
                                       boxShadow: [
@@ -238,7 +238,7 @@ class HalfPainter extends CustomPainter {
     path.arcTo(afterRect, vector.radians(180), vector.radians(-90), false);
     path.close();
 
-    canvas.drawPath(path, Paint()..color = Color.fromARGB(255, 76, 46, 185));
+    canvas.drawPath(path, Paint()..color = const Color.fromARGB(255, 76, 46, 185));
   }
 
   @override

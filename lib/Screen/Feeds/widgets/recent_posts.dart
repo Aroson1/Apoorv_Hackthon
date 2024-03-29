@@ -2,7 +2,9 @@ import '../models/blog_model.dart';
 import 'package:flutter/material.dart';
 
 class RecentPosts extends StatelessWidget {
-  final Color primarycolor = Color(0xFF1D1D1D);
+  final Color primarycolor = const Color(0xFF1D1D1D);
+
+  const RecentPosts({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +14,10 @@ class RecentPosts extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: blogs
               .map((blog) => Container(
-                    margin: EdgeInsets.only(bottom: 15.0),
+                    margin: const EdgeInsets.only(bottom: 15.0),
                     width: MediaQuery.of(context).size.width,
                     height: 160,
-                    decoration: BoxDecoration(color: primarycolor, boxShadow: [
+                    decoration: BoxDecoration(color: primarycolor, boxShadow: const [
                       BoxShadow(
                           color: Color.fromARGB(255, 70, 70, 70),
                           offset: Offset(0.0, 5.0),
@@ -23,7 +25,7 @@ class RecentPosts extends StatelessWidget {
                           spreadRadius: 0.1)
                     ]),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           vertical: 15.0, horizontal: 20.0),
                       child: Row(
                         children: <Widget>[
@@ -43,24 +45,24 @@ class RecentPosts extends StatelessWidget {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.66,
-                            padding: EdgeInsets.symmetric(horizontal: 20.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 Text(
                                   blog.author.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14.0,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
-                                Container(
+                                const SizedBox(height: 5.0),
+                                SizedBox(
                                   height: 65,
                                   child: Text(
                                     blog.name,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18.0,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
@@ -70,22 +72,22 @@ class RecentPosts extends StatelessWidget {
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
-                                        Icon(
+                                        const Icon(
                                           Icons.timer,
                                           color: Colors.grey,
                                           size: 12.0,
                                         ),
-                                        SizedBox(width: 5.0),
+                                        const SizedBox(width: 5.0),
                                         Text(
                                           blog.created_at,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.grey,
                                           ),
                                         )
                                       ],
                                     ),
-                                    SizedBox(width: 20.0),
-                                    Row(
+                                    const SizedBox(width: 20.0),
+                                    const Row(
                                       children: <Widget>[
                                         Icon(
                                           Icons.remove_red_eye,

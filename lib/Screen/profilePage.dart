@@ -1,21 +1,20 @@
-import 'package:firebase_winterhacks/core/backend_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class ProfilePage extends StatelessWidget {
   final String user;
-  const ProfilePage({Key? key, required this.user}) : super(key: key);
+  const ProfilePage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _feedbackController = TextEditingController();
+    TextEditingController feedbackController = TextEditingController();
 
-    void _sendReport() {
-      print(_feedbackController.text);
+    void sendReport() {
+      print(feedbackController.text);
       //TODO: Implement this method
     }
 
-    void _openReportDialog() {
+    void openReportDialog() {
       showDialog(
         context: context,
         builder: (context) {
@@ -23,7 +22,7 @@ class ProfilePage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.0),
             ),
-            backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+            backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
             content: GlassContainer(
               height: 350,
               width: 300,
@@ -64,7 +63,7 @@ class ProfilePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: TextField(
-                      controller: _feedbackController,
+                      controller: feedbackController,
                       decoration: InputDecoration(
                         hintText: "Enter your feedback here",
                         border: OutlineInputBorder(
@@ -79,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      _sendReport();
+                      sendReport();
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
@@ -94,7 +93,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           );
-          ;
         },
       );
     }
@@ -110,7 +108,7 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "$user",
+                    user,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -147,7 +145,7 @@ class ProfilePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       FloatingActionButton.extended(
-                        onPressed: _openReportDialog,
+                        onPressed: openReportDialog,
                         heroTag: 'report',
                         elevation: 0,
                         backgroundColor: Colors.blue,
@@ -170,7 +168,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class _ProfileInfoRow extends StatelessWidget {
-  const _ProfileInfoRow({Key? key}) : super(key: key);
+  const _ProfileInfoRow();
 
   final List<ProfileInfoItem> _items = const [
     ProfileInfoItem("Threats Identfied", 38),
@@ -227,7 +225,7 @@ class ProfileInfoItem {
 }
 
 class _TopPortion extends StatelessWidget {
-  const _TopPortion({Key? key}) : super(key: key);
+  const _TopPortion();
 
   @override
   Widget build(BuildContext context) {

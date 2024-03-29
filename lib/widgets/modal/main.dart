@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 import 'popover.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -27,12 +31,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Custom Popover'),
+        title: const Text('Flutter Custom Popover'),
       ),
       body: Container(),
       floatingActionButton: FloatingActionButton(
         onPressed: _handleFABPressed,
-        child: Icon(Icons.filter_alt_outlined),
+        child: const Icon(Icons.filter_alt_outlined),
       ),
     );
   }
@@ -47,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               _buildListItem(
                 context,
-                title: Text('Total Task'),
-                leading: Icon(Icons.check_circle_outline),
+                title: const Text('Total Task'),
+                leading: const Icon(Icons.check_circle_outline),
                 trailing: Switch(
                   value: true,
                   onChanged: (value) {},
@@ -56,8 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               _buildListItem(
                 context,
-                title: Text('Due Soon'),
-                leading: Icon(Icons.inbox),
+                title: const Text('Due Soon'),
+                leading: const Icon(Icons.inbox),
                 trailing: Switch(
                   value: false,
                   onChanged: (value) {},
@@ -65,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               _buildListItem(
                 context,
-                title: Text('Completed'),
-                leading: Icon(Icons.check_circle),
+                title: const Text('Completed'),
+                leading: const Icon(Icons.check_circle),
                 trailing: Switch(
                   value: false,
                   onChanged: (value) {},
@@ -74,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               _buildListItem(
                 context,
-                title: Text('Working On'),
-                leading: Icon(Icons.flag),
+                title: const Text('Working On'),
+                leading: const Icon(Icons.flag),
                 trailing: Switch(
                   value: false,
                   onChanged: (value) {},
@@ -97,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final theme = Theme.of(context);
 
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 24.0,
         vertical: 16.0,
       ),
@@ -119,11 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 horizontal: 16.0,
               ),
               child: DefaultTextStyle(
-                child: title,
                 style: theme.textTheme.titleLarge!,
+                child: title,
               ),
             ),
-          Spacer(),
+          const Spacer(),
           if (trailing != null) trailing,
         ],
       ),
