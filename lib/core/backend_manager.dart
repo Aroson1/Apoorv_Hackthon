@@ -13,6 +13,26 @@ class BackendManager {
     return Uri.parse(baseURL + path);
   }
 
+  Future<void> sendReport(String feedback, String tag) async {
+    try {
+      await http.post(
+        endpoint("/report"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+          {
+            "uid": uid,
+            "tag": tag,
+            "feedback": feedback,
+          },
+        ),
+      );
+    } catch (e) {
+      // Handle error
+    }
+  }
+
   Future<http.Response> Login(String email) async {
     try {
       final response = await http.post(

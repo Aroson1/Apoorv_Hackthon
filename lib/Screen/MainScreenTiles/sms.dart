@@ -1,7 +1,9 @@
+import 'package:apoorv_hackathon/core/backend_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../core/user_instance.dart';
 
 class SMSList extends StatefulWidget {
   const SMSList({super.key});
@@ -15,6 +17,7 @@ class _SMSListState extends State<SMSList> {
   List<bool> isSpamList = [];
   bool isLoading = true;
   bool hasPermission = false;
+  String uid = UsrInstance().getuid();
 
   @override
   void initState() {
@@ -113,6 +116,7 @@ class _SMSListState extends State<SMSList> {
                       color: isSpamList[i] ? Colors.green : Colors.red),
                   onPressed: () {
                     toggleSpam(i);
+                    BackendManager(uid: uid).FlagPhoneNo(messages[i].address!);
                   },
                 ),
               ),

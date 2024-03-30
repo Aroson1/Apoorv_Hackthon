@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
+import '../core/backend_manager.dart';
 import '../core/user_instance.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -13,7 +14,8 @@ class ProfilePage extends StatelessWidget {
 
     void sendReport() {
       print(feedbackController.text);
-      //TODO: Implement this method
+      BackendManager(uid: UsrInstance().getuid())
+          .sendReport(feedbackController.text, "user");
     }
 
     void openReportDialog() {

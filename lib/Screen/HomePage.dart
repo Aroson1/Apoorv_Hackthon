@@ -18,7 +18,6 @@ class GlassmorphicGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void openSMS() {}
     void handleFABPressed(Enum selectedTile) {
       showModalBottomSheet<int>(
         isScrollControlled: true,
@@ -94,7 +93,7 @@ class GlassmorphicGrid extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
                 child: Text(
-                  'Welcome to your Cyber Gardian!',
+                  'Welcome to your Cyber Guardian!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 32.0,
