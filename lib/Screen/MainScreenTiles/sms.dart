@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SMSList extends StatefulWidget {
   const SMSList({super.key});
@@ -11,49 +12,112 @@ class SMSList extends StatefulWidget {
 
 class _SMSListState extends State<SMSList> {
   List<SmsMessage> messages = [];
+  List<bool> isSpamList = [];
+  bool isLoading = true;
+  bool hasPermission = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPermissions();
+  }
+
+  Future<void> _checkPermissions() async {
+    PermissionStatus permissionStatus = await _getPermission();
+    if (permissionStatus == PermissionStatus.granted) {
+      setState(() {
+        hasPermission = true;
+      });
+      getMessages();
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Show an error message or request permission again
+    }
+  }
+
+  Future<PermissionStatus> _getPermission() async {
+    PermissionStatus permission = await Permission.sms.status;
+    if (permission != PermissionStatus.granted &&
+        permission != PermissionStatus.permanentlyDenied) {
+      PermissionStatus permissionStatus = await Permission.sms.request();
+      return permissionStatus;
+    } else {
+      return permission;
+    }
+  }
+
   // get the SMS messages using a function
   void getMessages() async {
-    SmsQuery query = SmsQuery();
-    List<SmsMessage> sms = await query.getAllSms;
+    try {
+      SmsQuery query = SmsQuery();
+      List<SmsMessage> sms = await query.getAllSms;
+      setState(() {
+        messages = sms;
+        isSpamList = List.generate(sms.length, (index) => true);
+        isSpamList[0] = false;
+        isLoading = false;
+      });
+      print(messages.length);
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      // Show an error message or handle the exception
+    }
+  }
+
+  // function to toggle isSpam for a message
+  void toggleSpam(int index) {
     setState(() {
-      messages = sms;
+      isSpamList[index] = !isSpamList[index];
     });
-    print(messages.length);
   }
 
   @override
   Widget build(BuildContext context) {
-    // If sms is empty display a loading indicator and get the messages, once sms are loaded display the messages in glassmorphic list tiles
-    if (messages.isEmpty) {
-      getMessages();
+    if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
+    } else if (!hasPermission) {
+      return const Center(
+        child: Text('Permission denied to read SMS messages'),
+      );
     } else {
-      return ListView.builder(
-        itemCount: messages.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GlassContainer(
-              height: 100,
-              width: 300,
-              blur: 10,
-              border: Border.all(
-                color: Colors.white.withOpacity(0.2),
-                width: 1.0,
-              ),
-              color: const Color.fromRGBO(216, 121, 223, 0.1),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20),
-              ),
+      print("lenght: ${messages.length}");
+      return Column(
+        children: [
+          Text(
+            'SMS Messages',
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          for (int i = 0; i < messages.length; i++)
+            GlassContainer(
+              opacity: 0.3,
+              shadowStrength: 8,
+              borderRadius: BorderRadius.circular(12),
+              color: isSpamList[i] ? Colors.red : Colors.green,
+              // margin: const EdgeInsets.all(8),
+              // padding: const EdgeInsets.all(8),
               child: ListTile(
-                title: Text(messages[index].address!),
-                subtitle: Text(messages[index].body!),
+                title: Text(messages[i].address!),
+                subtitle: Text(messages[i].body!),
+                trailing: IconButton(
+                  icon: Icon(
+                      isSpamList[i] ? Icons.flag_rounded : Icons.flag_outlined,
+                      color: isSpamList[i] ? Colors.green : Colors.red),
+                  onPressed: () {
+                    toggleSpam(i);
+                  },
+                ),
               ),
             ),
-          );
-        },
+        ],
       );
     }
   }

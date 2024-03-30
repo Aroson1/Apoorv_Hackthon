@@ -48,6 +48,7 @@ dependencies:
   flutter_sms_inbox: ^1.0.3
   qrscan: ^0.3.3
   external_app_launcher: ^4.0.0
+  flutter_local_notifications: ^17.0.0
 
 
   http: any
