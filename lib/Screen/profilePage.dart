@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
+import '../core/user_instance.dart';
+
 class ProfilePage extends StatelessWidget {
   final String user;
   const ProfilePage({super.key, required this.user});
@@ -99,6 +101,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Expanded(flex: 2, child: _TopPortion()),
           Expanded(
@@ -119,9 +122,7 @@ class ProfilePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       FloatingActionButton.extended(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                        },
+                        onPressed: () {},
                         heroTag: 'settings',
                         elevation: 0,
                         label: const Text("Settings"),
@@ -130,6 +131,9 @@ class ProfilePage extends StatelessWidget {
                       const SizedBox(width: 16.0),
                       FloatingActionButton.extended(
                         onPressed: () {
+                          UsrInstance().setLoggedOut();
+                          UsrInstance().removeuid();
+
                           Navigator.pushNamed(context, '/login');
                         },
                         heroTag: 'logout',
@@ -172,7 +176,7 @@ class _ProfileInfoRow extends StatelessWidget {
 
   final List<ProfileInfoItem> _items = const [
     ProfileInfoItem("Threats Identfied", 38),
-    ProfileInfoItem("Phishing Attempts Blocked", 8),
+    ProfileInfoItem("Phishings Blocked", 8),
     ProfileInfoItem("Malware Detected", 0),
   ];
 
@@ -181,17 +185,19 @@ class _ProfileInfoRow extends StatelessWidget {
     return Container(
       height: 80,
       constraints: const BoxConstraints(maxWidth: 400),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: _items
-            .map((item) => Expanded(
-                    child: Row(
-                  children: [
-                    if (_items.indexOf(item) != 0) const VerticalDivider(),
-                    Expanded(child: _singleItem(context, item)),
-                  ],
-                )))
-            .toList(),
+      child: Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: _items
+              .map((item) => Expanded(
+                      child: Row(
+                    children: [
+                      if (_items.indexOf(item) != 0) const VerticalDivider(),
+                      Expanded(child: _singleItem(context, item)),
+                    ],
+                  )))
+              .toList(),
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
-import 'package:firebase_winterhacks/Screen/HomePage.dart';
-import 'package:firebase_winterhacks/Screen/profilePage.dart';
+import '../Screen/HomePage.dart';
+import '../Screen/profilePage.dart';
 
 import '../Screen/Feeds/FeedsPage.dart';
 import 'package:flutter/material.dart';

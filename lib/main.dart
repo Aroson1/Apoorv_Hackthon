@@ -7,6 +7,8 @@ import 'firebase_options.dart';
 import 'Screen/MainScreen.dart';
 import 'Screen/Login_Page/Login_background.dart';
 import 'Screen/Signup_Page/Signup_background.dart';
+import 'core/user_instance.dart';
+import 'core/permission_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,11 +23,17 @@ void main() async {
 
   String? token = await fcm.getToken();
   print('Token: $token');
+  requestPermissions();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,7 @@ class MyApp extends StatelessWidget {
       title: "Cyber Safety App",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.dark,
         fontFamily: 'Poppins',
       ),

@@ -1,4 +1,8 @@
+import '../../core/backend_manager.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import '../../core/user_instance.dart';
 
 class BitcoinAddress extends StatefulWidget {
   const BitcoinAddress({super.key});
@@ -8,7 +12,11 @@ class BitcoinAddress extends StatefulWidget {
 }
 
 class _BitcoinAddressState extends State<BitcoinAddress> {
-  TextEditingController _bitcoinAddressController = TextEditingController();
+  String uid = UsrInstance().getuid();
+  bool isClicked = false;
+
+  final TextEditingController _bitcoinAddressController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,7 +37,7 @@ class _BitcoinAddressState extends State<BitcoinAddress> {
             padding: const EdgeInsets.all(18),
             child: TextField(
               controller: _bitcoinAddressController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Bitcoin Address',
               ),
@@ -39,10 +47,44 @@ class _BitcoinAddressState extends State<BitcoinAddress> {
             height: 20,
           ),
           ElevatedButton(
-            onPressed: () {},
-            child: const Text('Submit'),
+            onPressed: () {
+              setState(() {
+                isClicked = true;
+              });
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple,
+            ),
+            child: const Text('Submit', style: TextStyle(fontSize: 20)),
           ),
-          Text("Report: ")
+          const SizedBox(
+            height: 20,
+          ),
+          const Text("Report: ", style: TextStyle(fontSize: 25)),
+          StreamBuilder(
+            stream: isClicked
+                ? BackendManager(uid: uid)
+                    .CheckBitcoin(_bitcoinAddressController.text)
+                    .asStream()
+                : null,
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return const Text("Enter a Bitcoin Address");
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+              if (snapshot.hasError) {
+                return const Text("Error");
+              }
+              return Text(
+                jsonDecode(snapshot.data!.body)['spam'] == true
+                    ? " Address is clean."
+                    : "Adress has prior association with scam(s). Unless the recipient is trusted, don't engage in any transactions.",
+                style: const TextStyle(fontSize: 20),
+              );
+            },
+          ),
         ],
       ),
     );

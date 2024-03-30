@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import './user_instance.dart';
 
 /// A class that handles authentication using Firebase Auth.
 class FirebaseAuthenticator {
@@ -19,6 +20,9 @@ class FirebaseAuthenticator {
           .signInWithEmailAndPassword(
               email: usernameController.text,
               password: passwordController.text);
+
+      UsrInstance().setLoggedIn();
+      UsrInstance().setuid(userCredential.user!.email!);
 
       Navigator.pushNamed(context, '/home',
           arguments: userCredential.user!.email);
@@ -46,6 +50,9 @@ class FirebaseAuthenticator {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
+      UsrInstance().setLoggedIn();
+      UsrInstance().setuid(userCredential.user!.email!);
+
       Navigator.pushNamed(context, '/home',
           arguments: userCredential.user!.email);
     } on FirebaseAuthException catch (e) {
@@ -101,6 +108,9 @@ class FirebaseAuthenticator {
       );
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
+      UsrInstance().setLoggedIn();
+      UsrInstance().setuid(userCredential.user!.email!);
+
       Navigator.pushNamed(context, '/home',
           arguments: userCredential.user!.email);
     } on FirebaseAuthException {
